@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080914">
+  <title>DAIMXASADAUTOMATION — Automation Studio</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="loginOverlay" class="login-overlay">
+    <form id="loginForm" class="login-card">
+      <div class="logo-mark">💎</div>
+      <h1>DAIMXASADAUTOMATION</h1>
+      <p>Script &amp; Image Prompt Automation Studio</p>
+      <label for="loginName">Your name</label>
+      <input id="loginName" autocomplete="name" placeholder="Enter your name" required>
+      <label for="loginPin">Access PIN (optional)</label>
+      <input id="loginPin" type="password" placeholder="For this demo only">
+      <button class="primary" type="submit">Enter Studio</button>
+      <small>This is a local demo login, not secure account authentication.</small>
+    </form>
+  </div>
+
+  <header class="site-header">
+    <div class="brand">
+      <img id="brandLogo" src="logo.png" alt="DAIM X ASAD logo" onerror="this.style.display='none'">
+      <div class="brand-diamond">💎</div>
+      <div>
+        <h1>DAIMXASADAUTOMATION</h1>
+        <p>Script &amp; Image Prompt Automation Studio</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <span id="userBadge" class="user-badge">Guest</span>
+      <button id="logoutBtn" class="subtle" type="button">Log out</button>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="Studio sections">
+    <button class="tab active" data-page="scriptPage">🎬 Script Generator</button>
+    <button class="tab" data-page="imagePage">🖼️ Image Prompt Generator</button>
+    <button class="tab" data-page="voicePage">🔊 Voice Generator</button>
+  </nav>
+
+  <main class="container">
+    <section id="scriptPage" class="page active">
+      <div class="panel">
+        <h2>✍️ Page 1 — Script Generator 🎬</h2>
+        <label for="videoTitle">1. Video Title</label>
+        <input id="videoTitle" placeholder="Enter your video title">
+        <label for="videoType">2. Video Type</label>
+        <select id="videoType">
+          <option>Health</option><option>Motivation</option><option>Education</option>
+          <option>Finance</option><option>Islamic</option><option>Story</option><option>Technology</option><option>Other</option>
+        </select>
+        <label for="scriptCount">3. Number of Scripts</label>
+        <input id="scriptCount" type="number" min="1" max="20" placeholder="Enter number of scripts" value="1">
+        <label for="deliveryMode">4. Script Delivery Mode</label>
+        <select id="deliveryMode"><option value="one">1 = One by One</option><option value="all">2 = All Together</option></select>
+        <label for="paragraphCount">5. Paragraphs Per Script</label>
+        <input id="paragraphCount" type="number" min="1" max="100" placeholder="Enter paragraph count" value="8">
+        <label for="characterTarget">6. Total Characters Per Paragraph</label>
+        <input id="characterTarget" type="number" min="100" max="10000" placeholder="Enter character target" value="500">
+        <label for="scriptLanguage">7. Script Language</label>
+        <select id="scriptLanguage"><option>English (US)</option><option>Urdu</option><option>Hindi</option><option>English (UK)</option><option>Spanish</option></select>
+        <label for="scriptInstructions">Extra instructions (optional)</label>
+        <textarea id="scriptInstructions" rows="3" placeholder="Tone, audience, structure, facts to include..."></textarea>
+        <button id="generateScript" class="primary" type="button">💎 GENERATE SCRIPT</button>
+        <div id="scriptStatus" class="status" role="status">Ready to generate.</div>
+      </div>
+      <div class="panel output-panel">
+        <div class="output-heading"><h2>📜 Script Output</h2><button id="copyScripts" class="secondary" type="button">📋 Copy All</button></div>
+        <p id="scriptEmpty" class="muted">Your scripts will appear here.</p>
+        <div id="scriptOutput"></div>
+      </div>
+    </section>
+
+    <section id="imagePage" class="page">
+      <div class="panel">
+        <h2>🖼️ Page 2 — Image Prompt Generator</h2>
+        <label for="completedScript">1. Completed Script</label>
+        <textarea id="completedScript" rows="8" placeholder="Paste script here (paragraphs separated by a blank line)"></textarea>
+        <label for="promptMode">2. Number of Image Prompts</label>
+        <select id="promptMode"><option value="auto">Auto = One Prompt Per Paragraph</option><option value="custom">Custom number of prompts</option></select>
+        <label for="customPromptCount">Custom number</label>
+        <input id="customPromptCount" type="number" min="1" max="100" placeholder="Enter number" disabled>
+        <div class="style-note"><strong>Default image style:</strong> realistic black chalkboard, thick wooden frame, white chalk handwriting, red chalk circles/underlines for key words, small hand-drawn illustrations that match the paragraph. Keep the paragraph's exact English text on the board.</div>
+        <label for="imageStyle">Image style</label>
+        <select id="imageStyle"><option value="chalkboard">Wooden-frame black chalkboard (recommended)</option><option value="bluewhite">Light blue and white educational style</option><option value="custom">Custom style from instructions</option></select>
+        <textarea id="customImageStyle" rows="2" placeholder="Optional custom image style instructions"></textarea>
+        <button id="generatePrompts" class="primary" type="button">🎨 GENERATE IMAGE PROMPTS</button>
+        <button id="copyPrompts" class="secondary" type="button" disabled>📋 COPY ALL PROMPTS</button>
+        <div id="imageStatus" class="status" role="status">Paste a script to begin.</div>
+      </div>
+      <div class="panel output-panel">
+        <div class="output-heading"><h2>🖼️ Image Prompts</h2><span id="promptCount" class="count">0 prompts</span></div>
+        <p id="promptEmpty" class="muted">Your prompts will appear here.</p>
+        <div id="promptOutput"></div>
+      </div>
+    </section>
+
+    <section id="voicePage" class="page">
+      <div class="panel">
+        <h2>🔊 Page 3 — Voice Generator</h2>
+        <label for="voiceText">1. Text to speak</label>
+        <textarea id="voiceText" rows="8" placeholder="Paste your script or any text here"></textarea>
+        <label for="voiceSelect">2. Device voice (browser voices)</label>
+        <select id="voiceSelect"><option value="">Loading available voices…</option></select>
+        <label for="voiceSpeed">Speed <span id="speedValue">1.0×</span></label>
+        <input id="voiceSpeed" type="range" min="0.5" max="1.5" step="0.1" value="1">
+        <div class="button-row">
+          <button id="playVoice" class="primary" type="button">▶ PLAY</button>
+          <button id="stopVoice" class="secondary" type="button">⏹ STOP</button>
+        </div>
+        <p class="muted">This uses voices installed in your browser/device. It plays speech but does not create an MP3 file. Voice availability depends on your device.</p>
+        <div id="voiceStatus" class="status" role="status">Ready.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-logo">💎 DAIMXASADAUTOMATION</div>
+    <p>Script &amp; Image Prompt Automation Studio</p>
+    <small>Keep your Gemini API key private. Use server-side environment variables.</small>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
